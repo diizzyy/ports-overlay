@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2024-05-13 21:32:20 UTC
++++ CMakeLists.txt
+@@ -430,7 +430,7 @@ install(FILES README.rst DESTINATION "${CMAKE_INSTALL_
+ 
+ install(FILES README.rst DESTINATION "${CMAKE_INSTALL_DOCDIR}")
+ 
+-add_subdirectory(lib)
++#add_subdirectory(lib)
+ #add_subdirectory(lib/includes)
+ add_subdirectory(third-party)
+ add_subdirectory(src)
