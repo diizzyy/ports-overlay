@@ -1,0 +1,8 @@
+include/nghttp2/nghttp2.h
+include/nghttp2/nghttp2ver.h
+lib/cmake/nghttp2/nghttp2-targets-%%CMAKE_BUILD_TYPE%%.cmake
+lib/cmake/nghttp2/nghttp2-targets.cmake
+lib/libnghttp2.so
+lib/libnghttp2.so.14
+lib/libnghttp2.so.14.28.5
+libdata/pkgconfig/libnghttp2.pc
