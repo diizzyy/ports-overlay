@@ -1,0 +1,37 @@
+--- meson.build.orig	2025-06-18 14:11:58 UTC
++++ meson.build
+@@ -1,13 +1,13 @@ project('x264', 'c',
+ project('x264', 'c',
+-  version: run_command(find_program('version.py'), '--package-version', check: true).stdout().strip(),
+-  default_options: ['optimization=2', 'c_std=c11'],
++  version: '%%DISTVERSION%%',
++  default_options: ['c_std=c11'],
+   meson_version: '>= 0.64'
+ )
+ 
+ x264_ver = meson.project_version()
+ x264_rev = meson.project_version().split('.')[2]
+ x264_build = meson.project_version().split('.')[1]
+-x264_commit = run_command(find_program('version.py'), '--commit-hash', check: true).stdout().strip()
++x264_commit = '%%GIT_COMMIT_HASH%%'
+ 
+ message('build: ' + x264_build)
+ message('commit: ' + x264_commit)
+@@ -205,8 +205,6 @@ if ['x86', 'x86_64'].contains(host_cpu)
+     elif ['darwin', 'ios'].contains(host_system)
+       asflags += ['-f', 'macho32']
+     elif host_system.endswith('bsd')
+-      asflags += ['-f', 'aoutb']
+-    else
+       asflags += ['-f', 'elf32']
+     endif
+   elif host_cpu == 'x86_64'
+@@ -217,8 +215,6 @@ if ['x86', 'x86_64'].contains(host_cpu)
+     elif ['darwin', 'ios'].contains(host_system)
+       asflags += ['-f', 'macho64']
+     elif host_system.endswith('bsd')
+-      asflags += ['-f', 'aoutb']
+-    else
+       asflags += ['-f', 'elf64']
+     endif
+   endif
