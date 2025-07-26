@@ -12,6 +12,8 @@ rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
 rm -rf /usr/ports/textproc/libxml2-python
 rm -rf /usr/ports/textproc/libxml2
+rm -rf /usr/ports/multimedia/libx264
+rm -rf /usr/ports/multimedia/x264
 cp -Rp archivers/zstd /usr/ports/archivers/zstd
 cp -Rp multimedia/libmediainfo /usr/ports/multimedia/libmediainfo
 cp -Rp multimedia/mediainfo /usr/ports/multimedia/mediainfo
@@ -25,4 +27,6 @@ cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp textproc/libxml2-python /usr/ports/textproc/libxml2-python
 cp -Rp textproc/libxml2 /usr/ports/textproc/libxml2
+cp -Rp multimedia/libx264 /usr/ports/multimedia/libx264
+cp -Rp multimedia/x264 /usr/ports/multimedia/x264
 chown -R root:wheel /usr/ports
