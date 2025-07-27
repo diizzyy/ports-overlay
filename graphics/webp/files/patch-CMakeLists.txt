@@ -1,0 +1,31 @@
+--- CMakeLists.txt.orig	2025-07-08 00:20:00 UTC
++++ CMakeLists.txt
+@@ -592,8 +592,8 @@ if(WEBP_BUILD_VWEBP)
+ 
+ if(WEBP_BUILD_VWEBP)
+   # vwebp
+-  find_package(GLUT)
+-  if(GLUT_FOUND)
++  find_package(FreeGLUT)
++  if(FreeGLUT_FOUND)
+     include_directories(${WEBP_DEP_IMG_INCLUDE_DIRS})
+     parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/examples "VWEBP_SRCS" "vwebp")
+     add_executable(vwebp ${VWEBP_SRCS})
+@@ -601,7 +601,7 @@ if(WEBP_BUILD_VWEBP)
+       vwebp
+       ${OPENGL_LIBRARIES}
+       exampleutil
+-      GLUT::GLUT
++      glut
+       imageioutil
+       webp
+       webpdemux)
+@@ -795,7 +795,7 @@ install(
+   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+-set(ConfigPackageLocation ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake/)
++set(ConfigPackageLocation ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}/)
+ install(EXPORT ${PROJECT_NAME}Targets NAMESPACE ${PROJECT_NAME}::
+         DESTINATION ${ConfigPackageLocation})
+ 
