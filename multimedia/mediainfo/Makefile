@@ -1,5 +1,5 @@
 PORTNAME=	mediainfo
-DISTVERSION=	25.04
+DISTVERSION=	25.07
 CATEGORIES=	multimedia
 MASTER_SITES=	https://mediaarea.net/download/source/${PORTNAME}/${DISTVERSION}/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
