@@ -6,7 +6,7 @@ MASTER_SITES=	https://github.com/xiph/${PORTNAME}/releases/download/${DISTVERSIO
 		https://downloads.xiph.org/releases/${PORTNAME}/
 
 PATCH_SITES=	https://github.com/xiph/flac/commit/
-PATCHFILES=	0ea0018dfe3b47539d544c204dd974a51fa068ed.patch:-p1 \
+PATCHFILES=	8d648456a2d7444d54a579e365bab4c815ac6873.patch:-p1 \
 		22ad63f7157eac08734e4e4fe780f33dad05dd5f.patch:-p1
 
 MAINTAINER=	naddy@FreeBSD.org
