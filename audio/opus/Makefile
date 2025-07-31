@@ -1,5 +1,6 @@
 PORTNAME=	opus
 DISTVERSION=	1.5.2
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/xiph/${PORTNAME}/releases/download/v${DISTVERSION}/ \
 		https://downloads.xiph.org/releases/${PORTNAME}/
@@ -17,6 +18,7 @@ SHEBANG_FILES=	meson/*.py
 USE_LDCONFIG=	yes
 
 MESON_ARGS=	-Ddefault_library=both \
+		-Dcustom-modes=true \
 		-Ddocs=disabled \
 		-Dextra-programs=disabled
 
