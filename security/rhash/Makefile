@@ -17,13 +17,13 @@ USE_LDCONFIG=	yes
 
 WRKSRC=		${WRKDIR}/RHash-${DISTVERSION}
 
+TEST_TARGET=	test-full
 INSTALL_TARGET=	install install-lib-so-link install-pkg-config
 
 PORTDOCS=	ChangeLog README.md
 
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--prefix="${PREFIX}" \
-		--mandir="${PREFIX}/share/man" \
 		--pkgconfigdir="${PREFIX}/libdata/pkgconfig" \
 		--enable-lib-static \
 		--enable-openssl-runtime \
@@ -44,9 +44,5 @@ post-patch:
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${INSTALL_DATA} ${PORTDOCS:S,^,${WRKSRC}/,} ${STAGEDIR}${DOCSDIR}
-
-do-test:
-	${CP} ${WRKSRC}/lib${PORTNAME}/lib${PORTNAME}.so* ${WRKSRC}
-	cd ${WRKSRC}/tests && ${SH} test_rhash.sh --full --shared ${WRKSRC}/rhash
 
 .include <bsd.port.mk>
