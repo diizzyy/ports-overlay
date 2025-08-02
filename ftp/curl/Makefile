@@ -1,5 +1,6 @@
 PORTNAME=	curl
 DISTVERSION=	8.15.0
+PORTREVISION=	1
 CATEGORIES=	ftp net www
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/curl-${DISTVERSION:S|.|_|g}/ \
 		https://curl.se/download/

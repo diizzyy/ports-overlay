@@ -1,5 +1,6 @@
 PORTNAME=	flac
 DISTVERSION=	1.5.0
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/xiph/${PORTNAME}/releases/download/${DISTVERSION}/ \

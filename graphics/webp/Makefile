@@ -1,5 +1,6 @@
 PORTNAME=	webp
 DISTVERSION=	1.6.0
+PORTREIVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://downloads.webmproject.org/releases/${PORTNAME}/ \
 		https://storage.googleapis.com/downloads.webmproject.org/releases/${PORTNAME}/

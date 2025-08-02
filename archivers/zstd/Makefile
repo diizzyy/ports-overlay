@@ -1,5 +1,6 @@
 PORTNAME=	zstd
 DISTVERSION=	1.5.7
+PORTREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	https://github.com/facebook/${PORTNAME}/releases/download/v${DISTVERSION}/
 
