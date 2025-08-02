@@ -13,10 +13,12 @@ WWW=		https://www.xiph.org/ogg/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		cmake pathfix tar:xz
+USES=		cmake:testing pathfix tar:xz
 USE_LDCONFIG=	yes
 
 CFLAGS+=	-fsigned-char
+
+CMAKE_TESTING_TARGET=	#
 
 CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_OFF=	INSTALL_DOCS
@@ -24,6 +26,9 @@ CMAKE_OFF=	INSTALL_DOCS
 OPTIONS_DEFINE=	DOCS
 
 DOCS_CMAKE_BOOL=	INSTALL_DOCS
+
+post-test:
+	(cd ${TEST_WRKSRC} && ./test_bitwise && ./test_framing)
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/${PORTNAME}
