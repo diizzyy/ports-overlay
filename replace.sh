@@ -12,6 +12,7 @@ rm -rf /usr/ports/multimedia/libx264
 rm -rf /usr/ports/multimedia/libzen
 rm -rf /usr/ports/multimedia/mediainfo
 rm -rf /usr/ports/multimedia/x264
+rm -rf /usr/ports/net/libngtcp2
 rm -rf /usr/ports/security/rhash
 rm -rf /usr/ports/textproc/libxml2
 rm -rf /usr/ports/textproc/libxml2-python
@@ -29,6 +30,7 @@ cp -Rp graphics/webp /usr/ports/graphics/webp
 cp -Rp multimedia/libmediainfo /usr/ports/multimedia/libmediainfo
 cp -Rp multimedia/libx264 /usr/ports/multimedia/libx264
 cp -Rp multimedia/libzen /usr/ports/multimedia/libzen
+cp -Rp net/libngtcp2 /usr/ports/net/libngtcp2
 cp -Rp multimedia/mediainfo /usr/ports/multimedia/mediainfo
 cp -Rp multimedia/x264 /usr/ports/multimedia/x264
 cp -Rp security/rhash /usr/ports/security/rhash
