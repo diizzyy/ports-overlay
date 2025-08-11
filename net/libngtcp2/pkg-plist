@@ -1,5 +1,4 @@
 include/ngtcp2/ngtcp2.h
-%%GNUTLS%%%%WOLFSSL%%include/ngtcp2/ngtcp2_crypto.h
 %%GNUTLS%%include/ngtcp2/ngtcp2_crypto_gnutls.h
 %%WOLFSSL%%include/ngtcp2/ngtcp2_crypto_wolfssl.h
 include/ngtcp2/version.h
