@@ -202,6 +202,10 @@ ZSTD_CMAKE_BOOL=	CURL_ZSTD
 
 .include <bsd.port.pre.mk>
 
+.if ${PORT_OPTIONS:MHTTP2}
+TEST_DEPENDS=	nghttpx:www/nghttp2
+.endif
+
 .if ((!${PORT_OPTIONS:MGNUTLS} && !${PORT_OPTIONS:MOPENSSL}) || (${PORT_OPTIONS:MOPENSSL} && ${SSL_DEFAULT:Mlibressl*})) && ${PORT_OPTIONS:MTLS_SRP}
 IGNORE=		only supports TLS-SRP with either GnuTLS or OpenSSL
 .endif
