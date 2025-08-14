@@ -6,9 +6,7 @@ MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/curl-
 		https://curl.se/download/
 
 #PATCH_SITES=	https://github.com/curl/curl/commit/
-#PATCHFILES=	71bb004c29631117ab03d90a4214d1515da5a895.patch:-p1 \
-#		d16ccbd55de80c271fe822f4ba8b6271fd9166ff.patch:-p1 \
-#		4c6b74e1e8dfe3ebe681f5be9a5dd7d684e285c7.patch:-p1
+#PATCHFILES=	71bb004c29631117ab03d90a4214d1515da5a895.patch:-p1
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Command line tool and library for transferring data with URLs
@@ -207,11 +205,11 @@ TEST_DEPENDS=	nghttpx:www/nghttp2
 .endif
 
 .if ((!${PORT_OPTIONS:MGNUTLS} && !${PORT_OPTIONS:MOPENSSL}) || (${PORT_OPTIONS:MOPENSSL} && ${SSL_DEFAULT:Mlibressl*})) && ${PORT_OPTIONS:MTLS_SRP}
-IGNORE=		only supports TLS-SRP with either GnuTLS or OpenSSL
+IGNORE=		TLS-SRP is only supported with either GnuTLS or OpenSSL
 .endif
 
 .if ${PORT_OPTIONS:MLDAPS} && !${PORT_OPTIONS:MGNUTLS} && !${PORT_OPTIONS:MOPENSSL} && !${PORT_OPTIONS:MWOLFSSL}
-IGNORE=		only supports LDAPS with GnuTLS/OpenSSL/wolfSSL
+IGNORE=		LDAPS is only supported with GnuTLS/OpenSSL/wolfSSL
 .endif
 
 post-patch:
