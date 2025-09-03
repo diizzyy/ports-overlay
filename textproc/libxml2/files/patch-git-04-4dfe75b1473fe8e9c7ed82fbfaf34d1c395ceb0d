@@ -1,0 +1,27 @@
+From 4dfe75b1473fe8e9c7ed82fbfaf34d1c395ceb0d Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Wed, 23 Jul 2025 01:05:46 +0200
+Subject: [PATCH] tests: Silence testparser
+
+Regressed with bd9d5e39.
+---
+ testparser.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/testparser.c b/testparser.c
+index 1bb7684d6..86130efeb 100644
+--- testparser.c
++++ testparser.c
+@@ -188,7 +188,8 @@ testInvalidCharRecovery(void) {
+     xmlDoc *doc;
+     int err = 0;
+ 
+-    doc = xmlReadDoc(BAD_CAST xml, NULL, NULL, XML_PARSE_RECOVER);
++    doc = xmlReadDoc(BAD_CAST xml, NULL, NULL,
++                     XML_PARSE_RECOVER | XML_PARSE_NOERROR);
+ 
+     if (strcmp((char *) doc->children->children->content, "\x10") != 0) {
+         fprintf(stderr, "Failed to recover from invalid char ref\n");
+-- 
+GitLab
+

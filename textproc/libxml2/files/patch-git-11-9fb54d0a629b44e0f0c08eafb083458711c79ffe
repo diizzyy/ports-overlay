@@ -1,0 +1,26 @@
+From 9fb54d0a629b44e0f0c08eafb083458711c79ffe Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Mon, 25 Aug 2025 12:29:55 +0200
+Subject: [PATCH] valid: Fix null deref in xmlValidateOneAttribute
+
+Short-lived regression from previous commit.
+---
+ valid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/valid.c b/valid.c
+index 2e379997a..d54e20f78 100644
+--- valid.c
++++ valid.c
+@@ -4314,7 +4314,7 @@ xmlValidateOneAttribute(xmlValidCtxtPtr ctxt, xmlDocPtr doc,
+ 
+     /* Validity Constraint: ID uniqueness */
+     if (attrDecl->atype == XML_ATTRIBUTE_ID &&
+-        (ctxt->flags & XML_VCTXT_IN_ENTITY) == 0) {
++        (ctxt == NULL || (ctxt->flags & XML_VCTXT_IN_ENTITY) == 0)) {
+         if (xmlAddID(ctxt, doc, value, attr) == NULL)
+ 	    ret = 0;
+     }
+-- 
+GitLab
+

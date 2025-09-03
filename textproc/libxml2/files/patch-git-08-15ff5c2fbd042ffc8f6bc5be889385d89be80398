@@ -1,0 +1,40 @@
+From 15ff5c2fbd042ffc8f6bc5be889385d89be80398 Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Tue, 12 Aug 2025 13:18:46 +0200
+Subject: [PATCH] regexp: Avoid integer overflow and OOB array access
+
+Limit size of 2D arrays to XML_MAX_ITEMS (1e9) to avoid overflow of int
+indexes.
+
+Fixes #950.
+---
+ xmlregexp.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/xmlregexp.c b/xmlregexp.c
+index 9d36c1722..5f46db2aa 100644
+--- xmlregexp.c
++++ xmlregexp.c
+@@ -416,14 +416,17 @@ static int xmlFAComputesDeterminism(xmlRegParserCtxtPtr ctxt);
+  */
+ static void*
+ xmlRegCalloc2(size_t dim1, size_t dim2, size_t elemSize) {
+-    size_t totalSize;
++    size_t numElems, totalSize;
+     void *ret;
+ 
+     /* Check for overflow */
+     if ((dim2 == 0) || (elemSize == 0) ||
+         (dim1 > SIZE_MAX / dim2 / elemSize))
+         return (NULL);
+-    totalSize = dim1 * dim2 * elemSize;
++    numElems = dim1 * dim2;
++    if (numElems > XML_MAX_ITEMS)
++        return NULL;
++    totalSize = numElems * elemSize;
+     ret = xmlMalloc(totalSize);
+     if (ret != NULL)
+         memset(ret, 0, totalSize);
+-- 
+GitLab
+

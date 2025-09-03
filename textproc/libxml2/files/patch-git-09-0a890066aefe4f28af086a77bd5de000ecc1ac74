@@ -1,0 +1,32 @@
+From 0a890066aefe4f28af086a77bd5de000ecc1ac74 Mon Sep 17 00:00:00 2001
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Date: Wed, 20 Aug 2025 10:18:25 +0200
+Subject: [PATCH] Fix initGenericErrorDefaultFunc(NULL)
+
+Calling initGenericErrorDefaultFunc(NULL) currently yields to
+
+/usr/include/libxml2/libxml/xmlerror.h:23:45: error: invalid use of void expression
+   23 |     xmlSetGenericErrorFunc(NULL, (h) ? *(h) : NULL)
+
+Indeed, even if h is nul, the compiler will try to give a type to *(h),
+which can't work.
+---
+ include/libxml/xmlerror.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/libxml/xmlerror.h b/include/libxml/xmlerror.h
+index 743d82130..cefd8f713 100644
+--- include/libxml/xmlerror.h
++++ include/libxml/xmlerror.h
+@@ -20,7 +20,7 @@ extern "C" {
+  * Backward compatibility
+  */
+ #define initGenericErrorDefaultFunc(h) \
+-    xmlSetGenericErrorFunc(NULL, (h) ? *(h) : NULL)
++    xmlSetGenericErrorFunc(NULL, (h) ? *((xmlGenericErrorFunc *) (h)) : NULL)
+ 
+ /**
+  * xmlErrorLevel:
+-- 
+GitLab
+

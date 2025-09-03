@@ -1,0 +1,27 @@
+From 8ec61c10fa11c1c1a86afb1b530dce6315f4e72b Mon Sep 17 00:00:00 2001
+From: Nick Wellnhofer <wellnhofer@aevum.de>
+Date: Fri, 1 Aug 2025 15:30:08 +0200
+Subject: [PATCH] globals: Include HTMLparser.h, fixing Windows build
+
+Regressed with c011e760 and 85bd58ef.
+
+Fixes #961.
+---
+ globals.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/globals.c b/globals.c
+index e0b05a249..a4c72e7ed 100644
+--- globals.c
++++ globals.c
+@@ -18,6 +18,7 @@
+ #include <libxml/xmlerror.h>
+ #include <libxml/xmlmemory.h>
+ #include <libxml/xmlIO.h>
++#include <libxml/HTMLparser.h>
+ #include <libxml/parser.h>
+ #include <libxml/threads.h>
+ #include <libxml/tree.h>
+-- 
+GitLab
+
