@@ -15,6 +15,7 @@ rm -rf /usr/ports/multimedia/mediainfo
 rm -rf /usr/ports/multimedia/x264
 rm -rf /usr/ports/net/libngtcp2
 rm -rf /usr/ports/security/rhash
+rm -rf /usr/ports/textproc/libxslt
 rm -rf /usr/ports/textproc/libxml2
 rm -rf /usr/ports/textproc/libxml2-python
 rm -rf /usr/ports/www/libnghttp2
@@ -36,6 +37,7 @@ cp -Rp net/libngtcp2 /usr/ports/net/libngtcp2
 cp -Rp multimedia/mediainfo /usr/ports/multimedia/mediainfo
 cp -Rp multimedia/x264 /usr/ports/multimedia/x264
 cp -Rp security/rhash /usr/ports/security/rhash
+cp -Rp textproc/libxslt /usr/ports/textproc/libxslt
 cp -Rp textproc/libxml2 /usr/ports/textproc/libxml2
 cp -Rp textproc/libxml2-python /usr/ports/textproc/libxml2-python
 cp -Rp www/libnghttp2 /usr/ports/www/libnghttp2
