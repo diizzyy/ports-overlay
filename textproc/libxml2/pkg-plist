@@ -53,7 +53,7 @@ lib/cmake/libxml2/libxml2-export-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/libxml2/libxml2-export.cmake
 lib/libxml2.so
 lib/libxml2.so.16
-lib/libxml2.so.16.0.5
+lib/libxml2.so.16.0.6
 libdata/pkgconfig/libxml-2.0.pc
 share/man/man1/xml2-config.1.gz
 share/man/man1/xmlcatalog.1.gz
