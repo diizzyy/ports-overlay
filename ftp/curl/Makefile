@@ -1,12 +1,8 @@
 PORTNAME=	curl
-DISTVERSION=	8.15.0
-PORTREVISION=	2
+DISTVERSION=	8.16.0
 CATEGORIES=	ftp net www
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/curl-${DISTVERSION:S|.|_|g}/ \
 		https://curl.se/download/
-
-#PATCH_SITES=	https://github.com/curl/curl/commit/
-#PATCHFILES=	71bb004c29631117ab03d90a4214d1515da5a895.patch:-p1
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Command line tool and library for transferring data with URLs
@@ -188,6 +184,7 @@ THREADED_RESOLVER_CMAKE_BOOL=	ENABLE_THREADED_RESOLVER
 TLS_SRP_CMAKE_BOOL_OFF=	CURL_DISABLE_SRP
 
 WEBSOCKETS_CMAKE_BOOL_OFF=	CURL_DISABLE_WEBSOCKETS
+WEBSOCKETS_IMPLIES=	HTTP
 
 WOLFSSL_LIB_DEPENDS=	libwolfssl.so:security/wolfssl
 WOLFSSL_CMAKE_BOOL=	CURL_USE_WOLFSSL
