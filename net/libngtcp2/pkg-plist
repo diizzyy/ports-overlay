@@ -8,7 +8,7 @@ lib/cmake/ngtcp2/ngtcp2Targets-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/ngtcp2/ngtcp2Targets.cmake
 lib/libngtcp2.so
 lib/libngtcp2.so.16
-lib/libngtcp2.so.16.5.0
+lib/libngtcp2.so.16.6.0
 %%GNUTLS%%lib/libngtcp2_crypto_gnutls.so
 %%GNUTLS%%lib/libngtcp2_crypto_gnutls.so.8
 %%GNUTLS%%lib/libngtcp2_crypto_gnutls.so.8.2.0
