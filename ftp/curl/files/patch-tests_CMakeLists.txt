@@ -1,4 +1,4 @@
---- tests/CMakeLists.txt.orig	2025-09-10 18:08:29 UTC
+--- tests/CMakeLists.txt.orig	2025-11-05 21:22:19 UTC
 +++ tests/CMakeLists.txt
 @@ -125,7 +125,7 @@ curl_add_runtests(test-full      "-a -p -r")
  curl_add_runtests(test-am        "-a -am")
