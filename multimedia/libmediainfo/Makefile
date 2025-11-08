@@ -1,5 +1,5 @@
 PORTNAME=	libmediainfo
-DISTVERSION=	25.09
+DISTVERSION=	25.10
 CATEGORIES=	multimedia
 MASTER_SITES=	https://mediaarea.net/download/source/${PORTNAME}/${DISTVERSION}/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
@@ -21,7 +21,8 @@ DOS2UNIX_GLOB=	*.c *.cmake.in *.cpp *.h *.pc.in *.txt
 DOS2UNIX_WRKSRC=${WRKDIR}
 USE_LDCONFIG=	yes
 
-EXTRACT_AFTER_ARGS=	--exclude MediaInfoLib/Source/ThirdParty/tinyxml2
+EXTRACT_AFTER_ARGS=	--exclude MediaInfoLib/Source/ThirdParty/tinyxml2 \
+			--no-same-owner --no-same-permissions
 WRKSRC=		${WRKDIR}/MediaInfoLib/Project/CMake
 
 PLIST_SUB=	DISTVERSION=${DISTVERSION:S/.//}
