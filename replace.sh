@@ -1,4 +1,5 @@
 #!/bin/sh
+rm -rf /usr/ports/archivers/liblz4
 rm -rf /usr/ports/archivers/zstd
 rm -rf /usr/ports/audio/flac
 rm -rf /usr/ports/audio/libogg
@@ -20,6 +21,7 @@ rm -rf /usr/ports/textproc/libxml2-python
 rm -rf /usr/ports/www/libnghttp2
 rm -rf /usr/ports/www/libnghttp3
 rm -rf /usr/ports/www/nghttp2
+cp -Rp archivers/liblz4 /usr/ports/archivers/liblz4
 cp -Rp archivers/zstd /usr/ports/archivers/zstd
 cp -Rp audio/flac /usr/ports/audio/flac
 cp -Rp audio/libogg /usr/ports/audio/libogg
