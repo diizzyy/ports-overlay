@@ -1,0 +1,15 @@
+--- meson.build.orig	2025-11-02 20:09:49 UTC
++++ meson.build
+@@ -20,11 +20,7 @@ project(
+     'buildtype=release',
+     'warning_level=3'
+   ],
+-  version: run_command(
+-    find_program('GetLz4LibraryVersion.py'),
+-    '../../lib/lz4.h',
+-    check: true
+-  ).stdout().strip(),
++  version: '%%DISTVERSION%%',
+   meson_version: '>=0.58.0'
+ )
+ 

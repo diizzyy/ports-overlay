@@ -1,0 +1,10 @@
+--- meson/lib/meson.build.orig	2025-11-02 22:26:55 UTC
++++ meson/lib/meson.build
+@@ -68,6 +68,7 @@ pkgconfig.generate(
+   liblz4,
+   name: 'lz4',
+   filebase: 'liblz4',
++  install_dir: 'libdata/pkgconfig',
+   description: 'extremely fast lossless compression algorithm library',
+   version: meson.project_version(),
+   url: 'http://www.lz4.org/'
