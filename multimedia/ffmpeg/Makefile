@@ -1,5 +1,5 @@
 PORTNAME=	ffmpeg
-DISTVERSION=	8.0
+DISTVERSION=	8.0.1
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio net
 MASTER_SITES=	https://ffmpeg.org/releases/
@@ -186,7 +186,7 @@ ZVBI_DESC=	Teletext support via libzvbi
 ###  --enable-libklvanc		Kernel Labs VANC processing
 ###  --enable-libopenvino	OpenVINO as a DNN module backend
 
-# ALSA
+# Audio support via Advanced Linux Sound Architecture (ALSA)
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 ALSA_CONFIGURE_ENABLE=	alsa
 
@@ -204,7 +204,7 @@ AMR_WB_IMPLIES=		GPL3
 AOM_LIB_DEPENDS=	libaom.so:multimedia/aom
 AOM_CONFIGURE_ENABLE=	libaom
 
-# ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS stream
+# ARIB STD-B24, decoding JIS 8 bit characters and parsing MPEG-TS streams
 ARIBB24_LIB_DEPENDS=	libaribb24.so:multimedia/aribb24
 ARIBB24_CONFIGURE_ENABLE=	libaribb24
 
@@ -288,7 +288,7 @@ FREI0R_CONFIGURE_ENABLE=	frei0r
 FRIBIDI_LIB_DEPENDS=	libfribidi.so:converters/fribidi
 FRIBIDI_CONFIGURE_ENABLE=	libfribidi
 
-# Libgcrypt
+# Crypto support via libgcrypt
 GCRYPT_LIB_DEPENDS=	libgcrypt.so:security/libgcrypt
 GCRYPT_CONFIGURE_ENABLE=	gcrypt
 
@@ -299,7 +299,7 @@ GLSLANG_CONFIGURE_ENABLE=	libglslang
 GLSLANG_LDFLAGS=	-lm
 GLSLANG_IMPLIES=	VULKAN
 
-# GnuTLS
+# Crypto support via GnuTLS
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
 GNUTLS_CONFIGURE_ENABLE=	gnutls
 
@@ -349,7 +349,7 @@ LADSPA_CONFIGURE_ENABLE=	ladspa
 LAME_LIB_DEPENDS=	libmp3lame.so:audio/lame
 LAME_CONFIGURE_ENABLE=	libmp3lame
 
-# lcms2
+# ICC profile support via lcms2
 LCMS2_LIB_DEPENDS=	liblcms2.so:graphics/lcms2
 LCMS2_CONFIGURE_ENABLE=	lcms2
 
@@ -357,7 +357,7 @@ LCMS2_CONFIGURE_ENABLE=	lcms2
 LENSFUN_LIB_DEPENDS=	liblensfun.so:graphics/lensfun
 LENSFUN_CONFIGURE_ENABLE=	liblensfun
 
-# libbluray
+# Blu-ray support via libbluray
 LIBBLURAY_LIB_DEPENDS=	libbluray.so:multimedia/libbluray
 LIBBLURAY_CONFIGURE_ENABLE=	libbluray
 LIBBLURAY_IMPLIES=	FONTCONFIG \
@@ -394,7 +394,7 @@ MFX_CONFIGURE_ENABLE=	libmfx
 MODPLUG_LIB_DEPENDS=	libmodplug.so:audio/libmodplug
 MODPLUG_CONFIGURE_ENABLE=	libmodplug
 
-# mysofa
+# Emulation of virtual laudspeakers binaural listening via headphones via (lib)mysofa
 MYSOFA_LIB_DEPENDS=	libmysofa.so:audio/libmysofa
 MYSOFA_CONFIGURE_ENABLE=	libmysofa
 
@@ -433,7 +433,7 @@ OPENJPEG_CONFIGURE_ENABLE=	libopenjpeg
 OPENMPT_LIB_DEPENDS=	libopenmpt.so:audio/libopenmpt
 OPENMPT_CONFIGURE_ENABLE=	libopenmpt
 
-# OpenSSL
+# Crypto support via OpenSSL
 OPENSSL_USES=		ssl
 OPENSSL_CONFIGURE_ENABLE=	openssl
 OPENSSL_IMPLIES=	NONFREE
@@ -458,11 +458,11 @@ PULSEAUDIO_CONFIGURE_ENABLE=	libpulse
 RAV1E_LIB_DEPENDS=	librav1e.so:multimedia/librav1e
 RAV1E_CONFIGURE_ENABLE=	librav1e
 
-# RabbitMQ
+# Advanced Message Queueing Protocol (AMQP) support via (lib)RabbitMQ
 RABBITMQ_LIB_DEPENDS=	librabbitmq.so:net/rabbitmq-c
 RABBITMQ_CONFIGURE_ENABLE=	librabbitmq
 
-# RIST via librist
+# RIST protocol support via librist
 RIST_LIB_DEPENDS=	librist.so:multimedia/librist
 RIST_CONFIGURE_ENABLE=	librist
 
@@ -489,7 +489,7 @@ SMB_USES=		samba:lib
 SMB_CONFIGURE_ENABLE=	libsmbclient
 SMB_IMPLIES=		GPL3
 
-# Snappy compression via libsnappy
+# Snappy compression support via libsnappy
 SNAPPY_LIB_DEPENDS=	libsnappy.so:archivers/snappy
 SNAPPY_CONFIGURE_ENABLE=	libsnappy
 
