@@ -16,6 +16,7 @@ include/libxslt/pattern.h
 include/libxslt/preproc.h
 include/libxslt/security.h
 include/libxslt/templates.h
+include/libxslt/transformInternals.h
 include/libxslt/transform.h
 include/libxslt/variables.h
 include/libxslt/xslt.h
@@ -24,14 +25,14 @@ include/libxslt/xsltconfig.h
 include/libxslt/xsltexports.h
 include/libxslt/xsltlocale.h
 include/libxslt/xsltutils.h
-lib/cmake/libxslt/FindGcrypt.cmake
+%%CRYPTO%%lib/cmake/libxslt/FindGcrypt.cmake
 lib/cmake/libxslt/libxslt-config-version.cmake
 lib/cmake/libxslt/libxslt-config.cmake
 lib/cmake/libxslt/libxslt-export-%%CMAKE_BUILD_TYPE%%.cmake
 lib/cmake/libxslt/libxslt-export.cmake
 lib/libexslt.so
 lib/libexslt.so.0
-lib/libexslt.so.0.8.24
+lib/libexslt.so.0.8.25
 lib/libxslt.so
 lib/libxslt.so.1
 lib/libxslt.so.%%LIBVERSION%%
