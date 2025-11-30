@@ -1,0 +1,40 @@
+From 745644b9d7057baa7a737d873f19526b8b53dddd Mon Sep 17 00:00:00 2001
+From: Daniel E <daniel.engberg.lists@pyret.net>
+Date: Sun, 21 Sep 2025 05:59:26 +0000
+Subject: [PATCH] meson: Check if git executable is available
+
+Check if git executable is available instead of breaking build if it isn't
+---
+ meson.build | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 31c73b62b..c41a96d44 100644
+--- meson.build
++++ meson.build
+@@ -17,9 +17,19 @@ v_min = v_array[1].to_int()
+ v_mic = v_array[2].to_int()
+ v_nbr = v_maj * 10000 + v_min * 100 + v_mic
+ v_extra = ''
+-r = run_command('git', 'describe', check: false)
+-if (r.returncode() == 0)
+-    v_extra = '-GIT' + r.stdout().strip()
++
++# git checkout
++fs = import('fs')
++if fs.is_dir(meson.current_source_dir() / '.git')
++    git = find_program('git', required: false)
++    if git.found()
++        r = run_command('git', 'describe', check: false)
++        if (r.returncode() == 0)
++            v_extra = '-GIT' + r.stdout().strip()
++        endif
++    else
++        message('This appears to be a git checkout but executable is missing, repository data will not be available')
++    endif
+ endif
+ 
+ # install paths
+-- 
+GitLab
+
