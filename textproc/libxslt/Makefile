@@ -1,8 +1,7 @@
 PORTNAME=	libxslt
-DISTVERSIONPREFIX=	v
-DISTVERSION=	1.1.44
+DISTVERSION=	1.1.45
 CATEGORIES=	textproc gnome
-#MASTER_SITES=	GNOME
+MASTER_SITES=	GNOME
 DIST_SUBDIR=	gnome
 
 MAINTAINER=	desktop@FreeBSD.org
@@ -16,9 +15,6 @@ USES=		cmake:testing cpe gnome pathfix pkgconfig tar:xz
 CPE_VENDOR=	xmlsoft
 USE_GNOME=	libxml2
 USE_LDCONFIG=	yes
-
-USE_GITHUB=	yes
-GH_ACCOUNT=	GNOME
 
 PLIST_SUB=	LIBVERSION=${DISTVERSION}
 
