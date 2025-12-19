@@ -1,9 +1,7 @@
 PORTNAME=	opus
-DISTVERSION=	1.5.2
-PORTREVISION=	1
+DISTVERSION=	1.6
 CATEGORIES=	audio
-MASTER_SITES=	https://github.com/xiph/${PORTNAME}/releases/download/v${DISTVERSION}/ \
-		https://downloads.xiph.org/releases/${PORTNAME}/
+MASTER_SITES=	https://downloads.xiph.org/releases/${PORTNAME}/
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	IETF audio codec
@@ -17,15 +15,17 @@ CPE_VENDOR=	opus-codec
 SHEBANG_FILES=	meson/*.py
 USE_LDCONFIG=	yes
 
-MESON_ARGS=	-Ddefault_library=both \
-		-Dcustom-modes=true \
+MESON_ARGS=	-Dcustom-modes=true \
 		-Ddocs=disabled \
 		-Dextra-programs=disabled
 
 .include <bsd.port.options.mk>
 
 .if ${ARCH} != "arm"
-MESON_ARGS+=	-Dasm=disabled
+MESON_ARGS+=	-Dasm=disabled \
+		-Ddeep-plc=enabled \
+		-Ddred=enabled \
+		-Dosce=enabled
 .endif
 
 .include <bsd.port.mk>
