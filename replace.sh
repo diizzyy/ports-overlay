@@ -7,7 +7,6 @@ rm -rf /usr/ports/audio/opus
 rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
 rm -rf /usr/ports/graphics/webp
-rm -rf /usr/ports/multimedia/ffmpeg
 rm -rf /usr/ports/multimedia/libmediainfo
 rm -rf /usr/ports/multimedia/libx264
 rm -rf /usr/ports/multimedia/libzen
@@ -28,7 +27,6 @@ cp -Rp audio/opus /usr/ports/audio/opus
 cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
-cp -Rp multimedia/ffmpeg /usr/ports/multimedia/ffmpeg
 cp -Rp multimedia/libmediainfo /usr/ports/multimedia/libmediainfo
 cp -Rp multimedia/libx264 /usr/ports/multimedia/libx264
 cp -Rp multimedia/libzen /usr/ports/multimedia/libzen
