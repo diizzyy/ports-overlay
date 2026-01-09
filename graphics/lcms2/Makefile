@@ -1,6 +1,5 @@
 PORTNAME=	lcms2
-DISTVERSION=	2.17
-PORTREVISION=	1
+DISTVERSION=	2.18
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/mm2/Little-CMS/releases/download/lcms${DISTVERSION}/
 
@@ -9,7 +8,8 @@ COMMENT=	Accurate, fast, and small-footprint color management engine
 WWW=		https://www.littlecms.com/ \
 		https://github.com/mm2/Little-CMS
 
-LICENSE=	GPLv3
+LICENSE=	MIT
+LICENSE_FILE=	${WRKSRC}/LICENSE
 
 USES=		cpe meson pkgconfig
 CPE_VENDOR=	littlecms
