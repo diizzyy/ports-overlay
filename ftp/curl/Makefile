@@ -1,5 +1,5 @@
 PORTNAME=	curl
-DISTVERSION=	8.17.0
+DISTVERSION=	8.18.0
 CATEGORIES=	ftp net www
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/curl-${DISTVERSION:S|.|_|g}/ \
 		https://curl.se/download/
@@ -216,19 +216,18 @@ IGNORE=		only supports LDAPS with GnuTLS/OpenSSL/wolfSSL
 .endif
 
 post-patch:
-	@${REINPLACE_CMD} -e 's|%%CMAKE_TESTING_PARALLEL_LEVEL%%|${CMAKE_TESTING_PARALLEL_LEVEL}|g' \
+	@${REINPLACE_CMD} -e 's|%%CMAKE_TESTING_JOBS%%|${CMAKE_TESTING_JOBS}|g' \
 	    ${PATCH_WRKSRC}/tests/CMakeLists.txt
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/docs/libcurl/libcurl.m4 ${STAGEDIR}${PREFIX}/share/aclocal/
-#	${RM} ${STAGEDIR}${PREFIX}/bin/mk-ca-bundle.pl
 	# .cmake files are a bit broken so skip these for now and FindCURL is
 	# a part of CMake(-core) so we still provide suitable facilities
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/cmake
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/ ${STAGEDIR}${DOCSDIR}/internals/ ${STAGEDIR}${DOCSDIR}/libcurl/
-	(cd ${WRKSRC}/docs/ && ${INSTALL_DATA} FAQ INSTALL KNOWN_BUGS THANKS TODO options-in-versions *.md ${STAGEDIR}${DOCSDIR}/)
+	(cd ${WRKSRC}/docs/ && ${INSTALL_DATA} INSTALL THANKS options-in-versions *.md ${STAGEDIR}${DOCSDIR}/)
 	${INSTALL_DATA} ${WRKSRC}/docs/internals/*.md ${STAGEDIR}${DOCSDIR}/internals/
 	(cd ${WRKSRC}/docs/libcurl/ && ${INSTALL_DATA} ABI.md libcurl.m4 *.pl symbols-in-versions ${STAGEDIR}${DOCSDIR}/libcurl/)
 
