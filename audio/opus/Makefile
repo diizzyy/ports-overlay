@@ -1,7 +1,7 @@
 PORTNAME=	opus
-DISTVERSION=	1.6
+DISTVERSION=	1.6.1
 CATEGORIES=	audio
-MASTER_SITES=	https://downloads.xiph.org/releases/${PORTNAME}/
+MASTER_SITES=	https://ftp.osuosl.org/pub/xiph/releases/${PORTNAME}/
 
 MAINTAINER=	naddy@FreeBSD.org
 COMMENT=	IETF audio codec
