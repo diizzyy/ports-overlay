@@ -11,9 +11,10 @@ WWW=		https://gitlab.gnome.org/GNOME/libxslt/
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/Copyright
 
-USES=		cmake:testing cpe gnome pathfix pkgconfig tar:xz
+USES=		cmake:testing cpe gnome pathfix perl5 pkgconfig tar:xz
 CPE_VENDOR=	xmlsoft
 USE_GNOME=	libxml2
+USE_PERL5=	test
 USE_LDCONFIG=	yes
 
 PLIST_SUB=	LIBVERSION=${DISTVERSION}
