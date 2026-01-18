@@ -1,0 +1,55 @@
+From 84b8530d852e51e7ccab1e2b4aef698f611486fb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Iv=C3=A1n=20Chavero?= <ichavero@chavero.com.mx>
+Date: Sun, 28 Sep 2025 13:57:28 -0600
+Subject: [PATCH] Fix xmlOutputBufferGetContent output when encoder is set.
+
+The xmlOutputBufferGetContent function only returns the buffer attribute
+of the _xmlOutputBuffer struct.
+When the `encoder` attribute is set the content is stored in the `conv`
+attribute after conversions are performed and the `buffer` attribute is
+emptied. This causes the xmlOutputBufferGetContent to always return
+empty when the `encoder` is set.
+
+This patch fixes the function by returning the `conv` attribute when the
+encoder is set.
+
+Fixes: #991
+---
+ xmlIO.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/xmlIO.c b/xmlIO.c
+index 789fc5e72..ee3cc9615 100644
+--- xmlIO.c
++++ xmlIO.c
+@@ -1824,9 +1824,12 @@ xmlOutputBufferCreateBuffer(xmlBuffer *buffer,
+  */
+ const xmlChar *
+ xmlOutputBufferGetContent(xmlOutputBuffer *out) {
+-    if ((out == NULL) || (out->buffer == NULL) || (out->error != 0))
++    if ((out == NULL) || (out->buffer == NULL) || ((out->encoder != NULL) && (out->conv == NULL)) || (out->error != 0))
+         return(NULL);
+ 
++    if (out->encoder != NULL)
++        return(xmlBufContent(out->conv));
++
+     return(xmlBufContent(out->buffer));
+ }
+ 
+@@ -1838,9 +1841,12 @@ xmlOutputBufferGetContent(xmlOutputBuffer *out) {
+  */
+ size_t
+ xmlOutputBufferGetSize(xmlOutputBuffer *out) {
+-    if ((out == NULL) || (out->buffer == NULL) || (out->error != 0))
++    if ((out == NULL) || (out->buffer == NULL) || ((out->encoder != NULL) && (out->conv == NULL)) || (out->error != 0))
+         return(0);
+ 
++    if (out->encoder != NULL)
++        return(xmlBufUse(out->conv));
++
+     return(xmlBufUse(out->buffer));
+ }
+ 
+-- 
+GitLab
+

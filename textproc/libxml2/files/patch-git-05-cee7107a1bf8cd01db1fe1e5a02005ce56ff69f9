@@ -1,0 +1,45 @@
+From cee7107a1bf8cd01db1fe1e5a02005ce56ff69f9 Mon Sep 17 00:00:00 2001
+From: Peter Fordham <peter.fordham@gmail.com>
+Date: Fri, 12 Dec 2025 20:00:25 -0800
+Subject: [PATCH] writer: Add a few extra NULL checks to avoid memory leaks on
+ corrupt writer path.
+
+---
+ xmlwriter.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/xmlwriter.c b/xmlwriter.c
+index 557432f2a..55a70bf42 100644
+--- xmlwriter.c
++++ xmlwriter.c
+@@ -1014,7 +1014,7 @@ xmlTextWriterStartElementNS(xmlTextWriter *writer,
+     int sum;
+     xmlChar *buf;
+ 
+-    if ((writer == NULL) || (name == NULL) || (*name == '\0'))
++    if ((writer == NULL) || (writer->nsstack == NULL) || (name == NULL) || (*name == '\0'))
+         return -1;
+ 
+     buf = NULL;
+@@ -1759,7 +1759,7 @@ xmlTextWriterStartAttributeNS(xmlTextWriter *writer,
+     xmlChar *buf;
+     xmlTextWriterNsStackEntry *p;
+ 
+-    if ((writer == NULL) || (name == NULL) || (*name == '\0'))
++    if ((writer == NULL) || (writer->nsstack == NULL) || (name == NULL) || (*name == '\0'))
+         return -1;
+ 
+     /* Handle namespace first in case of error */
+@@ -4167,6 +4167,9 @@ xmlTextWriterOutputNSDecl(xmlTextWriterPtr writer)
+     int count;
+     int sum;
+ 
++    if ((writer == NULL) || (writer->nsstack == NULL))
++        return -1;
++
+     sum = 0;
+     while (!xmlListEmpty(writer->nsstack)) {
+         xmlChar *namespaceURI = NULL;
+-- 
+GitLab
+

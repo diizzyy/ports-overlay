@@ -1,0 +1,98 @@
+From 4c3f00ba393d69d8d903e37c05318d87a81f80fb Mon Sep 17 00:00:00 2001
+From: Petr Simecek <lamparna@gmail.com>
+Date: Wed, 7 Jan 2026 12:22:59 +0100
+Subject: [PATCH] parser: Fix infinite loop in xmlCtxtParseContent
+
+The loop to find an element/document ancestor uses "cur = node->parent"
+as the iterator instead of "cur = cur->parent". This causes an infinite
+loop when the immediate parent is not an element/document/html node
+(e.g., when the node's parent is an entity reference).
+
+Fix by iterating with cur->parent to properly walk up the ancestor chain.
+
+Add regression test to testparser.c.
+
+Fixes: 4f329dc5 ("parser: Implement xmlCtxtParseContent")
+---
+ parser.c     |  2 +-
+ testparser.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/parser.c b/parser.c
+index c7f46a31a..6e7621a86 100644
+--- parser.c
++++ parser.c
+@@ -12033,7 +12033,7 @@ xmlCtxtParseContent(xmlParserCtxt *ctxt, xmlParserInput *input,
+         case XML_ENTITY_REF_NODE:
+         case XML_PI_NODE:
+         case XML_COMMENT_NODE:
+-            for (cur = node->parent; cur != NULL; cur = node->parent) {
++            for (cur = node->parent; cur != NULL; cur = cur->parent) {
+                 if ((cur->type == XML_ELEMENT_NODE) ||
+                     (cur->type == XML_DOCUMENT_NODE) ||
+                     (cur->type == XML_HTML_DOCUMENT_NODE)) {
+diff --git a/testparser.c b/testparser.c
+index 36b950e62..39b2bd47d 100644
+--- testparser.c
++++ testparser.c
+@@ -399,6 +399,49 @@ testCtxtParseContent(void) {
+     return err;
+ }
+ 
++/*
++ * Test that xmlParseInNodeContext doesn't hang when called on a node
++ * whose parent is an entity reference (not an element).
++ * Regression test for infinite loop bug in xmlCtxtParseContent.
++ */
++static int
++testParseInNodeContextEntityParent(void) {
++    xmlDocPtr doc;
++    xmlNodePtr root, entRef, textNode, result = NULL;
++    int err = 0;
++
++    doc = xmlNewDoc(BAD_CAST "1.0");
++    root = xmlNewNode(NULL, BAD_CAST "root");
++    xmlDocSetRootElement(doc, root);
++
++    /* Create an entity reference node */
++    entRef = xmlNewReference(doc, BAD_CAST "testentity");
++    xmlAddChild(root, entRef);
++
++    /* Create a text node as child of the entity reference */
++    textNode = xmlNewText(BAD_CAST "content");
++    xmlAddChild(entRef, textNode);
++
++    /*
++     * This used to hang in an infinite loop because the code walked
++     * up parents with "cur = node->parent" instead of "cur = cur->parent".
++     */
++    xmlParseInNodeContext(textNode, "<x/>", 4, 0, &result);
++
++    if (result != NULL)
++        xmlFreeNodeList(result);
++
++    /*
++     * Entity reference children aren't freed automatically by xmlFreeDoc,
++     * so we need to unlink and free the text node manually.
++     */
++    xmlUnlinkNode(textNode);
++    xmlFreeNode(textNode);
++    xmlFreeDoc(doc);
++
++    return err;
++}
++
+ static int
+ testNoBlanks(void) {
+     const xmlChar xml[] =
+@@ -1504,6 +1547,7 @@ main(void) {
+ #endif
+ #ifdef LIBXML_OUTPUT_ENABLED
+     err |= testCtxtParseContent();
++    err |= testParseInNodeContextEntityParent();
+     err |= testNoBlanks();
+     err |= testSaveNullEnc();
+     err |= testDocDumpFormatMemoryEnc();
+-- 
+GitLab
+

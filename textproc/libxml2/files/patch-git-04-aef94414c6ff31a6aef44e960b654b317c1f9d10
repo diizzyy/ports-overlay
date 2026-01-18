@@ -1,0 +1,26 @@
+From aef94414c6ff31a6aef44e960b654b317c1f9d10 Mon Sep 17 00:00:00 2001
+From: Peter Fordham <peter.fordham@gmail.com>
+Date: Sun, 14 Dec 2025 21:09:21 -0800
+Subject: [PATCH] Initialize pointer incase we end up skipping the while loop
+ completely.
+
+---
+ xpath.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xpath.c b/xpath.c
+index 9f92055df..b8e197cc9 100644
+--- xpath.c
++++ xpath.c
+@@ -7910,7 +7910,7 @@ void
+ xmlXPathLangFunction(xmlXPathParserContext *ctxt, int nargs) {
+     xmlXPathObjectPtr val;
+     xmlNodePtr cur;
+-    xmlChar *theLang;
++    xmlChar *theLang = NULL;
+     const xmlChar *lang;
+     int ret = 0;
+     int i;
+-- 
+GitLab
+

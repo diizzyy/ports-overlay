@@ -1,0 +1,33 @@
+From 76a6ba4c41e5f64b5a6e89d770a6add360f72075 Mon Sep 17 00:00:00 2001
+From: Peter Fordham <peter.fordham@gmail.com>
+Date: Tue, 9 Dec 2025 23:11:56 -0800
+Subject: [PATCH] Add specific check to avoid signed integer overflow of buffer
+ size.
+
+---
+ xmlwriter.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/xmlwriter.c b/xmlwriter.c
+index 35dfd4689..07d900f9e 100644
+--- xmlwriter.c
++++ xmlwriter.c
+@@ -4326,9 +4326,14 @@ xmlTextWriterVSprintf(const char *format, va_list argptr)
+ 
+     va_copy(locarg, argptr);
+     while (((count = vsnprintf((char *) buf, size, format, locarg)) < 0)
+-           || (count == size - 1) || (count == size) || (count > size)) {
++           || (count >= size - 1)) {
+ 	va_end(locarg);
+         xmlFree(buf);
++        if (size > INT_MAX - BUFSIZ) {
++           xmlWriterErrMsg(NULL, XML_ERR_ARGUMENT,
++                           "xmlTextWriterVSprintf : invalid format / argument!\n");
++           return NULL;
++        }
+         size += BUFSIZ;
+         buf = (xmlChar *) xmlMalloc(size);
+         if (buf == NULL) {
+-- 
+GitLab
+
