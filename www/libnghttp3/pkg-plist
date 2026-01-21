@@ -7,5 +7,5 @@ lib/cmake/nghttp3/nghttp3Targets.cmake
 lib/libnghttp3.a
 lib/libnghttp3.so
 lib/libnghttp3.so.9
-lib/libnghttp3.so.9.6.0
+lib/libnghttp3.so.9.6.1
 libdata/pkgconfig/libnghttp3.pc
