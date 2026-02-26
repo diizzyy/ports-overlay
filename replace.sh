@@ -4,6 +4,7 @@ rm -rf /usr/ports/archivers/zstd
 rm -rf /usr/ports/audio/flac
 rm -rf /usr/ports/audio/libogg
 rm -rf /usr/ports/audio/opus
+rm -rf /usr/ports/devel/googletest
 rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
 rm -rf /usr/ports/graphics/webp
@@ -24,6 +25,7 @@ cp -Rp archivers/zstd /usr/ports/archivers/zstd
 cp -Rp audio/flac /usr/ports/audio/flac
 cp -Rp audio/libogg /usr/ports/audio/libogg
 cp -Rp audio/opus /usr/ports/audio/opus
+cp -Rp devel/googletest /usr/ports/devel/googletest
 cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
