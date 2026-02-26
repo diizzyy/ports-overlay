@@ -19,6 +19,7 @@ rm -rf /usr/ports/textproc/libxslt
 rm -rf /usr/ports/textproc/libxml2
 rm -rf /usr/ports/www/libnghttp2
 rm -rf /usr/ports/www/libnghttp3
+rm -rf /usr/ports/www/llhttp
 rm -rf /usr/ports/www/nghttp2
 cp -Rp archivers/liblz4 /usr/ports/archivers/liblz4
 cp -Rp archivers/zstd /usr/ports/archivers/zstd
@@ -40,5 +41,6 @@ cp -Rp textproc/libxslt /usr/ports/textproc/libxslt
 cp -Rp textproc/libxml2 /usr/ports/textproc/libxml2
 cp -Rp www/libnghttp2 /usr/ports/www/libnghttp2
 cp -Rp www/libnghttp3 /usr/ports/www/libnghttp3
+cp -Rp www/llhttp /usr/ports/www/llhttp
 cp -Rp www/nghttp2 /usr/ports/www/nghttp2
 chown -R root:wheel /usr/ports
