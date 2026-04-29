@@ -1,5 +1,5 @@
 PORTNAME=	lcms2
-DISTVERSION=	2.18
+DISTVERSION=	2.19
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/mm2/Little-CMS/releases/download/lcms${DISTVERSION}/
 
