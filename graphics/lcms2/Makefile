@@ -1,5 +1,5 @@
 PORTNAME=	lcms2
-DISTVERSION=	2.19
+DISTVERSION=	2.19.1
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/mm2/Little-CMS/releases/download/lcms${DISTVERSION}/
 
@@ -16,7 +16,7 @@ CPE_VENDOR=	littlecms
 CPE_PRODUCT=	little_cms_color_engine
 USE_LDCONFIG=	yes
 
-PLIST_SUB=	DISTVERSION=${DISTVERSION}
+PLIST_SUB=	DISTVERSION=${DISTVERSION:R}
 
 MESON_ARGS=	-Dfastfloat=true \
 		-Dthreaded=true \
