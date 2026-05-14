@@ -1,5 +1,5 @@
 PORTNAME=	libmediainfo
-DISTVERSION=	26.01
+DISTVERSION=	26.05
 CATEGORIES=	multimedia
 MASTER_SITES=	https://mediaarea.net/download/source/${PORTNAME}/${DISTVERSION}/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/../../License.html
 LIB_DEPENDS=	libtinyxml2.so:textproc/tinyxml2 \
 		libzen.so:multimedia/libzen
 
-USES=		cmake compiler:c++11-lang dos2unix localbase:ldflags pathfix \
+USES=		cmake compiler:c++17-lang dos2unix localbase:ldflags pathfix \
 		pkgconfig tar:xz
 DOS2UNIX_GLOB=	*.c *.cmake.in *.cpp *.h *.pc.in *.txt
 DOS2UNIX_WRKSRC=${WRKDIR}
@@ -28,6 +28,7 @@ WRKSRC=		${WRKDIR}/MediaInfoLib/Project/CMake
 PLIST_SUB=	DISTVERSION=${DISTVERSION:S/.//}
 
 CMAKE_ON=	BUILD_SHARED_LIBS
+CMAKE_ARGS=	-DCMAKE_CXX_STANDARD=17
 
 OPTIONS_DEFINE=	CURL
 OPTIONS_DEFAULT=CURL
