@@ -1,5 +1,5 @@
 PORTNAME=	mediainfo
-DISTVERSION=	26.01
+DISTVERSION=	26.05
 CATEGORIES=	multimedia
 MASTER_SITES=	https://mediaarea.net/download/source/${PORTNAME}/${DISTVERSION}/
 DISTNAME=	${PORTNAME}_${DISTVERSION}
@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/../../../License.html
 LIB_DEPENDS=	libmediainfo.so:multimedia/libmediainfo \
 		libzen.so:multimedia/libzen
 
-USES=		autoreconf compiler:c++11-lang cpe dos2unix libtool pathfix \
+USES=		autoreconf compiler:c++17-lang cpe dos2unix libtool pathfix \
 		pkgconfig tar:xz
 CPE_VENDOR=	mediaarea
 DOS2UNIX_GLOB=	*.c *.cpp *.h
@@ -27,5 +27,9 @@ WRKSRC=		${WRKDIR}/MediaInfo/Project/GNU/CLI
 GNU_CONFIGURE=	yes
 
 PLIST_FILES=	bin/mediainfo
+
+post-patch:
+	@${REINPLACE_CMD} -e 's|-std=c++11|-std=c++17|g' \
+	    ${PATCH_WRKSRC}/Makefile.am
 
 .include <bsd.port.mk>
