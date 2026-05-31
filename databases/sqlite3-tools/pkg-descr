@@ -1,0 +1,8 @@
+Tools and utilities for SQLite
+Includes following:
+dbdump
+showdb
+showjournal
+showstat4
+showwal
+sqldiff
