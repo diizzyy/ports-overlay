@@ -4,6 +4,9 @@ rm -rf /usr/ports/archivers/zstd
 rm -rf /usr/ports/audio/flac
 rm -rf /usr/ports/audio/libogg
 rm -rf /usr/ports/audio/opus
+rm -rf /usr/ports/databases/sqlite3
+rm -rf /usr/ports/databases/sqlite3-tcl
+rm -rf /usr/ports/databases/sqlite3-tools
 rm -rf /usr/ports/devel/googletest
 rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
@@ -27,6 +30,9 @@ cp -Rp audio/flac /usr/ports/audio/flac
 cp -Rp audio/libogg /usr/ports/audio/libogg
 cp -Rp audio/opus /usr/ports/audio/opus
 cp -Rp devel/googletest /usr/ports/devel/googletest
+cp -Rp databases/sqlite3  /usr/ports/databases/sqlite3
+cp -Rp databases/sqlite3-tcl /usr/ports/databases/sqlite3-tcl
+cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3
 cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
