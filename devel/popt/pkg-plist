@@ -1,0 +1,10 @@
+include/popt.h
+lib/cmake/popt/poptConfig.cmake
+lib/cmake/popt/poptConfigVersion.cmake
+lib/cmake/popt/poptTargets-%%CMAKE_BUILD_TYPE%%.cmake
+lib/cmake/popt/poptTargets.cmake
+lib/libpopt.so
+lib/libpopt.so.0
+lib/libpopt.so.1.19
+libdata/pkgconfig/popt.pc
+share/man/man3/popt.3.gz

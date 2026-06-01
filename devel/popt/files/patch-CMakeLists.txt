@@ -1,0 +1,17 @@
+--- CMakeLists.txt.orig	2026-06-01 23:45:16 UTC
++++ CMakeLists.txt
+@@ -103,10 +103,10 @@ add_subdirectory(src)
+ 
+ 
+ add_subdirectory(src)
+-add_subdirectory(doc)
+-if (EXISTS po/popt.pot)
+-	add_subdirectory(po)
+-endif()
++# add_subdirectory(doc)
++# if (EXISTS po/popt.pot)
++#	add_subdirectory(po)
++# endif()
+ 
+ # Enable testing
+ include(CTest)
