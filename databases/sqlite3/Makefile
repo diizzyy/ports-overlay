@@ -1,12 +1,11 @@
 PORTNAME=	sqlite3
-DISTVERSION=	3.53.1
-PORTREVISION=	1
+DISTVERSION=	3.53.2
 PORTEPOCH=	1
 CATEGORIES=	databases
-MASTER_SITES=	https://www3.sqlite.org/2026/ \
-		https://www2.sqlite.org/2026/ \
-		https://www.sqlite.org/2026/
-DISTFILES=	sqlite-src-${DISTVERSION:C/\.([[:digit:]])[[:>:]]/0\1/g:S/.//g}00.zip:default
+MASTER_SITES=	https://www3.sqlite.org/2026/:sqlite3src \
+		https://www2.sqlite.org/2026/:sqlite3src \
+		https://www.sqlite.org/2026/:sqlite3src
+DISTFILES=	sqlite-src-${DISTVERSION:C/\.([[:digit:]])[[:>:]]/0\1/g:S/.//g}00.zip:sqlite3src
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT?=	Library that implements an embeddable SQL database engine
@@ -20,7 +19,9 @@ FLAVORS=	default icu
 FLAVOR?=	${FLAVORS:[1]}
 icu_PKGNAMESUFFIX=	-icu
 .endif
-USES+=		gmake libtool ncurses
+USES+=		cpe gmake libtool ncurses
+CPE_VENDOR=	sqlite
+CPE_PRODUCT=	sqlite
 USE_LDCONFIG=	yes
 
 USE_GITHUB=	nodefault
@@ -29,7 +30,7 @@ GH_PROJECT=	linenoise:linenoisesrc
 GH_TAGNAME=	2.0:linenoisesrc
 
 HAS_CONFIGURE=	yes
-WRKSRC=		${WRKDIR}/sqlite-src-${DISTVERSION:C/\.([[:digit:]])[[:>:]]/0\1/g:S/.//g}00
+WRKSRC=		${WRKDIR}/${_DISTFILES:Msqlite*:R}
 
 # SQLite lacks full support for FreeBSD so we need to tell what
 # features the os supports, see ${WRKSRC}/src/os_unix.c for a list.

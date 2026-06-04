@@ -11,7 +11,7 @@ USES=		sqlite
 SQLITE3_SLAVE=	tools
 
 DESCR=		${.CURDIR}/pkg-descr
-PLIST=		
+PLIST=
 PLIST_FILES=	bin/sqlite3_dbdump \
 		bin/sqlite3_showdb \
 		bin/sqlite3_showstat4 \
