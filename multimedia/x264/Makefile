@@ -42,7 +42,8 @@ FFMS_LIB_DEPENDS=	libffms2.so:multimedia/ffms2
 FFMS_MESON_ENABLED=	ffms
 FFMS_IMPLIES=		SWSCALE
 
-GPAC_LIB_DEPENDS=	libgpac.so:multimedia/gpac-libgpac
+GPAC_LIB_DEPENDS=	libgpac.so:multimedia/gpac
+GPAC_USES=		localbase:ldflags
 GPAC_MESON_ENABLED=	gpac
 
 LAVF_LIB_DEPENDS=	libavformat.so:multimedia/ffmpeg
