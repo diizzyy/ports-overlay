@@ -1,12 +1,8 @@
 PORTNAME=	curl
-DISTVERSION=	8.20.0
+DISTVERSION=	8.21.0
 CATEGORIES=	ftp net www
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/curl-${DISTVERSION:S|.|_|g}/ \
 		https://curl.se/download/
-
-#PATCH_SITES=	https://github.com/curl/curl/commit/
-#PATCHFILES=	53a3b2114a9b0652bb464437d38f5c8abffc708d.patch:-p1 \
-#		a43ea5943bb553c73777d33e353ccffcc52a23fb.patch:-p1
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Command line tool and library for transferring data with URLs
