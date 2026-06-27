@@ -144,6 +144,7 @@ post-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/showjournal ${STAGEDIR}${PREFIX}/bin/sqlite3_showjournal
 	${INSTALL_PROGRAM} ${WRKSRC}/showwal ${STAGEDIR}${PREFIX}/bin/sqlite3_showwal
 	${INSTALL_PROGRAM} ${WRKSRC}/sqldiff ${STAGEDIR}${PREFIX}/bin/sqlite3_sqldiff
+	${INSTALL_PROGRAM} ${WRKSRC}/sqlite3_rsync ${STAGEDIR}${PREFIX}/bin
 .  endif
 .endif
 
