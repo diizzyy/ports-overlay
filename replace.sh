@@ -36,7 +36,7 @@ cp -Rp devel/json-c /usr/ports/devel/json-c
 cp -Rp devel/popt /usr/ports/devel/popt
 cp -Rp databases/sqlite3  /usr/ports/databases/sqlite3
 cp -Rp databases/sqlite3-tcl /usr/ports/databases/sqlite3-tcl
-cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3
+cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3-tools
 cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
