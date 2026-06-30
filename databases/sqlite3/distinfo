@@ -1,5 +1,5 @@
-TIMESTAMP = 1780605667
-SHA256 (sqlite-src-3530200.zip) = cafff764c03f6d720968f746e2f47a986bbf12bf4c18904f1eb131c0b0b592d3
-SIZE (sqlite-src-3530200.zip) = 14527073
+TIMESTAMP = 1782806829
+SHA256 (sqlite-src-3530300.zip) = bb80bf8a3bffc19241ce8aba5a4bc74e9c3980013cb0b5f0f0976a99516942af
+SIZE (sqlite-src-3530300.zip) = 14537772
 SHA256 (antirez-linenoise-2.0_GH0.tar.gz) = 97ad7d4041e11d7fa395819fd773c1892dea89e5292342378a8345692ce89c29
 SIZE (antirez-linenoise-2.0_GH0.tar.gz) = 37046
