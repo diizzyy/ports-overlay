@@ -51,6 +51,6 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
 
 do-test:
-	(cd ${TEST_WRKSRC} && ${SETENV} ${CONFIGURE_CMD} ${TEST_TARGET} -j ${MAKE_JOBS_NUMBER} -R)
+	(cd ${TEST_WRKSRC} && ${SETENV} ${CONFIGURE_CMD} ${TEST_TARGET} -j ${MAKE_JOBS_NUMBER} -R -d dots)
 
 .include <bsd.port.mk>
