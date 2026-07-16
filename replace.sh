@@ -10,6 +10,7 @@ rm -rf /usr/ports/databases/sqlite3-tools
 rm -rf /usr/ports/devel/googletest
 rm -rf /usr/ports/devel/json-c
 rm -rf /usr/ports/devel/popt
+rm -rf /usr/ports/dns/libpsl
 rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
 rm -rf /usr/ports/graphics/webp
@@ -34,6 +35,7 @@ cp -Rp audio/opus /usr/ports/audio/opus
 cp -Rp devel/googletest /usr/ports/devel/googletest
 cp -Rp devel/json-c /usr/ports/devel/json-c
 cp -Rp devel/popt /usr/ports/devel/popt
+cp -Rp dns/libpsl /usr/ports/dns/libpsl
 cp -Rp databases/sqlite3  /usr/ports/databases/sqlite3
 cp -Rp databases/sqlite3-tcl /usr/ports/databases/sqlite3-tcl
 cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3-tools
