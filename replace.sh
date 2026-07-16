@@ -32,13 +32,13 @@ cp -Rp archivers/zstd /usr/ports/archivers/zstd
 cp -Rp audio/flac /usr/ports/audio/flac
 cp -Rp audio/libogg /usr/ports/audio/libogg
 cp -Rp audio/opus /usr/ports/audio/opus
+cp -Rp databases/sqlite3  /usr/ports/databases/sqlite3
+cp -Rp databases/sqlite3-tcl /usr/ports/databases/sqlite3-tcl
+cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3-tools
 cp -Rp devel/googletest /usr/ports/devel/googletest
 cp -Rp devel/json-c /usr/ports/devel/json-c
 cp -Rp devel/popt /usr/ports/devel/popt
 cp -Rp dns/libpsl /usr/ports/dns/libpsl
-cp -Rp databases/sqlite3  /usr/ports/databases/sqlite3
-cp -Rp databases/sqlite3-tcl /usr/ports/databases/sqlite3-tcl
-cp -Rp databases/sqlite3-tools /usr/ports/databases/sqlite3-tools
 cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
