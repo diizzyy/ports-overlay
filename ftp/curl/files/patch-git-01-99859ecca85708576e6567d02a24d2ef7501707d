@@ -1,0 +1,28 @@
+From 99859ecca85708576e6567d02a24d2ef7501707d Mon Sep 17 00:00:00 2001
+From: Viktor Szakats <commit@vsz.me>
+Date: Sun, 28 Jun 2026 13:20:50 +0200
+Subject: [PATCH] cf-ngtcp2-cmn: initialize new callback ptr for ngtcp2
+ 1.24.0+, bump in CI
+
+Fixes #22205
+
+Closes #22207
+---
+ .github/workflows/http3-linux.yml | 2 +-
+ lib/vquic/cf-ngtcp2-cmn.c         | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/lib/vquic/cf-ngtcp2-cmn.c b/lib/vquic/cf-ngtcp2-cmn.c
+index e1ca18cf69c8..419c52009acd 100644
+--- lib/vquic/cf-ngtcp2-cmn.c
++++ lib/vquic/cf-ngtcp2-cmn.c
+@@ -596,6 +596,9 @@ static ngtcp2_callbacks ng_callbacks = {
+   NULL, /* dcid_status2 */
+   ngtcp2_crypto_get_path_challenge_data2_cb, /* get_path_challenge_data2 */
+ #endif
++#ifdef NGTCP2_CALLBACKS_V4  /* ngtcp2 v1.24.0+ */
++  NULL, /* recv_stop_sending */
++#endif
+ };
+ 
+ #if defined(_MSC_VER) && defined(_DLL)

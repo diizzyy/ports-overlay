@@ -1,0 +1,68 @@
+From 381c3d56e332b7decb5392a84ccac0e972b4c56d Mon Sep 17 00:00:00 2001
+From: Pavel Sobolev <contact@paveloom.dev>
+Date: Tue, 21 Jul 2026 21:47:33 +0300
+Subject: [PATCH] ngtcp2: clean up after ngtcp2 in `curl_global_cleanup`
+
+Frees the memory allocated by `ngtcp2_crypto_ossl_init`, thus making
+Valgrind happy. Works for versions of ngtcp2 >= 1.24.0.
+
+Ref: https://github.com/ngtcp2/ngtcp2/issues/2207
+
+Closes #22363
+---
+ lib/easy.c        | 1 +
+ lib/vquic/vquic.c | 8 ++++++++
+ lib/vquic/vquic.h | 2 ++
+ 3 files changed, 11 insertions(+)
+
+diff --git a/lib/easy.c b/lib/easy.c
+index fa67c906567a..7321e738782e 100644
+--- lib/easy.c
++++ lib/easy.c
+@@ -268,6 +268,7 @@ void curl_global_cleanup(void)
+   }
+ 
+   Curl_ssl_cleanup();
++  Curl_vquic_cleanup();
+   Curl_async_global_cleanup();
+ 
+ #ifdef _WIN32
+diff --git a/lib/vquic/vquic.c b/lib/vquic/vquic.c
+index 802ffb7d3055..1f5e5bc6b8b0 100644
+--- lib/vquic/vquic.c
++++ lib/vquic/vquic.c
+@@ -67,6 +67,14 @@ int Curl_vquic_init(void)
+   return 1;
+ }
+ 
++void Curl_vquic_cleanup(void)
++{
++#if defined(USE_NGTCP2) && defined(OPENSSL_QUIC_API2) && \
++  (NGTCP2_VERSION_NUM >= 0x011800)
++  ngtcp2_crypto_ossl_free();
++#endif
++}
++
+ void Curl_quic_ver(char *p, size_t len)
+ {
+ #if defined(USE_NGTCP2) && defined(USE_NGHTTP3)
+diff --git a/lib/vquic/vquic.h b/lib/vquic/vquic.h
+index 8674a3001de9..f1363e2c0a76 100644
+--- lib/vquic/vquic.h
++++ lib/vquic/vquic.h
+@@ -33,6 +33,7 @@ struct Curl_addrinfo;
+ 
+ void Curl_quic_ver(char *p, size_t len);
+ int Curl_vquic_init(void);
++void Curl_vquic_cleanup(void);
+ 
+ CURLcode Curl_qlogdir(struct Curl_easy *data,
+                       unsigned char *scid,
+@@ -81,6 +82,7 @@ extern struct Curl_cftype Curl_cft_h3_proxy;
+ 
+ #else
+ #define Curl_vquic_init() 1
++#define Curl_vquic_cleanup()
+ #endif /* !CURL_DISABLE_HTTP && USE_HTTP3 */
+ 
+ CURLcode Curl_conn_may_http3(struct Curl_easy *data,

@@ -1,0 +1,79 @@
+From f9dc57a149a8ba38557b5d0e1f7e31ce9b93c810 Mon Sep 17 00:00:00 2001
+From: Viktor Szakats <commit@vsz.me>
+Date: Sun, 26 Jul 2026 21:15:33 +0200
+Subject: [PATCH] pytest: update two H3 tests for nghttp3 1.18.0+
+
+Fixing:
+```
+FAILED ../../tests/http/test_02_download.py::TestDownload::test_02_36_looong_urls[65536-h3] -
+  AssertionError: expected exit code 0, got 56
+FAILED ../../tests/http/test_14_auth.py::TestAuth::test_14_05_basic_large_pw[h3] -
+  AssertionError: expected exit code 0, got 56
+```
+Ref: https://github.com/curl/curl/actions/runs/30207198835/job/89807247058?pr=22400
+
+Refs:
+https://github.com/ngtcp2/nghttp3/pull/539
+https://github.com/ngtcp2/nghttp3/commit/a5872645446cdc07e897fea33b61a3c665563da9
+
+Bug: https://github.com/curl/curl/pull/22397#issuecomment-5084927935
+
+Closes #22402
+---
+ tests/http/test_02_download.py | 14 +++++++-------
+ tests/http/test_14_auth.py     | 12 +++++++++---
+ 2 files changed, 16 insertions(+), 10 deletions(-)
+
+diff --git a/tests/http/test_02_download.py b/tests/http/test_02_download.py
+index de2f1a3e0935..413d518a6ea4 100644
+--- tests/http/test_02_download.py
++++ tests/http/test_02_download.py
+@@ -720,11 +720,11 @@ def test_02_36_looong_urls(self, env: Env, httpd, nghttpx, proto, url_junk):
+                 # h2 is unable to send such large headers (frame limits)
+                 r.check_exit_code(55)
+             elif proto == 'h3':
+-                if url_junk <= 64 * 1024:
+-                    r.check_exit_code(0)
+-                    # nghttpx reports 431 Request Header Field too Large
++                # nghttpx reports 431 Request Header Field too Large
++                # or destroys the connection with internal error
++                # ERR_QPACK_HEADER_TOO_LARGE,
++                # depending on nghttp3 version and payload size
++                assert r.exit_code in (0, 56), f'expected exit code 0 or 56, '\
++                                               f'got {r.exit_code}\n{r.dump_logs()}'
++                if r.exit_code == 0:
+                     r.check_response(http_status=431)
+-                else:
+-                    # nghttpx destroys the connection with internal error
+-                    # ERR_QPACK_HEADER_TOO_LARGE
+-                    r.check_exit_code(56)
+diff --git a/tests/http/test_14_auth.py b/tests/http/test_14_auth.py
+index 69866baedf98..095dc382baf7 100644
+--- tests/http/test_14_auth.py
++++ tests/http/test_14_auth.py
+@@ -92,7 +92,7 @@ def test_14_04_digest_large_pw(self, env: Env, httpd, nghttpx, proto):
+     # PUT data, basic auth large pw
+     @pytest.mark.parametrize("proto", Env.http_mplx_protos())
+     def test_14_05_basic_large_pw(self, env: Env, httpd, nghttpx, proto):
+-        if proto == 'h3' and not env.curl_uses_lib('ngtcp2'):
++        if proto == 'h3' and env.curl_uses_lib('quiche'):
+             # See <https://github.com/cloudflare/quiche/issues/1573>
+             pytest.skip("quiche has problems with large requests")
+         # large enough that nghttp2 will submit
+@@ -105,8 +105,14 @@ def test_14_05_basic_large_pw(self, env: Env, httpd, nghttpx, proto):
+             '--trace-config', 'http/2,http/3'
+         ])
+         # but apache either denies on length limit or gives a 400
+-        r.check_exit_code(0)
+-        assert r.stats[0]['http_code'] in [400, 431]
++        if proto == 'h3':
++            # depends on nghttp3 version
++            assert r.exit_code in (0, 56), f'expected exit code 0 or 56, '\
++                                           f'got {r.exit_code}\n{r.dump_logs()}'
++        else:
++            r.check_exit_code(0)
++        if r.exit_code == 0:
++            assert r.stats[0]['http_code'] in [400, 431]
+ 
+     # PUT data, basic auth with very large pw
+     @pytest.mark.parametrize("proto", Env.http_mplx_protos())

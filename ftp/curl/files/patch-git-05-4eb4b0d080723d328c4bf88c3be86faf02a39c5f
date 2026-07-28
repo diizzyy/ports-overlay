@@ -1,0 +1,97 @@
+From 4eb4b0d080723d328c4bf88c3be86faf02a39c5f Mon Sep 17 00:00:00 2001
+From: Stefan Eissing <stefan@eissing.org>
+Date: Mon, 20 Jul 2026 14:37:13 +0200
+Subject: [PATCH] vquic: use ngtcp2 v1.25.0 new close2 callback
+
+Forward only the app error code from the receiving side to the h3 layer.
+
+This only takes effect when building against ngtcp2 v1.25.0 or higher.
+
+Fixes #22270
+
+Closes #22356
+---
+ lib/vquic/cf-ngtcp2-cmn.c  | 39 ++++++++++++++++++++++++++++++++++++++
+ tests/http/test_14_auth.py | 10 ++++------
+ 2 files changed, 43 insertions(+), 6 deletions(-)
+
+diff --git a/lib/vquic/cf-ngtcp2-cmn.c b/lib/vquic/cf-ngtcp2-cmn.c
+index 9cc3cad5c0f7..ea214ff8b06b 100644
+--- lib/vquic/cf-ngtcp2-cmn.c
++++ lib/vquic/cf-ngtcp2-cmn.c
+@@ -388,6 +388,42 @@ static int cb_stream_close(ngtcp2_conn *tconn, uint32_t flags,
+   return 0;
+ }
+ 
++#ifdef NGTCP2_CALLBACKS_V5  /* ngtcp2 v1.25.0+ */
++static int cb_stream_close2(ngtcp2_conn *tconn, uint32_t flags,
++                           int64_t stream_id,
++                           uint64_t rx_app_error_code,
++                           uint64_t tx_app_error_code,
++                           void *user_data, void *stream_user_data)
++{
++  struct Curl_cfilter *cf = user_data;
++  struct cf_ngtcp2_ctx *ctx = cf->ctx;
++  struct Curl_easy *data = stream_user_data;
++  uint64_t h3_app_error_code = NGHTTP3_H3_NO_ERROR;
++  int rv;
++
++  (void)tconn;
++  (void)tx_app_error_code;
++  /* stream is closed... */
++  if(!data)
++    data = CF_DATA_CURRENT(cf);
++  if(!data)
++    return NGTCP2_ERR_CALLBACK_FAILURE;
++
++  if(flags & NGTCP2_STREAM_CLOSE2_FLAG_RX_APP_ERROR_CODE_SET)
++    h3_app_error_code = rx_app_error_code;
++
++  rv = nghttp3_conn_close_stream(ctx->h3conn, stream_id, h3_app_error_code);
++  CURL_TRC_CF(data, cf, "[%" PRId64 "] quic close(app_error=%"
++              PRIu64 ") -> %d", stream_id, h3_app_error_code, rv);
++  if(rv && rv != NGHTTP3_ERR_STREAM_NOT_FOUND) {
++    Curl_cf_ngtcp2_h3_err_set(cf, data, rv);
++    return NGTCP2_ERR_CALLBACK_FAILURE;
++  }
++
++  return 0;
++}
++#endif
++
+ static int cb_stream_reset(ngtcp2_conn *tconn, int64_t stream_id,
+                            uint64_t final_size, uint64_t app_error_code,
+                            void *user_data, void *stream_user_data)
+@@ -603,6 +639,9 @@ static ngtcp2_callbacks ng_callbacks = {
+ #ifdef NGTCP2_CALLBACKS_V4  /* ngtcp2 v1.24.0+ */
+   NULL, /* recv_stop_sending */
+ #endif
++#ifdef NGTCP2_CALLBACKS_V5  /* ngtcp2 v1.25.0+ */
++  cb_stream_close2, /* is called instead of cb_stream_close when set */
++#endif
+ };
+ #ifdef CURL_HAVE_DIAG
+ #pragma GCC diagnostic pop
+diff --git a/tests/http/test_14_auth.py b/tests/http/test_14_auth.py
+index 095dc382baf7..ca808e007795 100644
+--- tests/http/test_14_auth.py
++++ tests/http/test_14_auth.py
+@@ -104,14 +104,12 @@ def test_14_05_basic_large_pw(self, env: Env, httpd, nghttpx, proto):
+             '--basic', '--user', f'test:{password}',
+             '--trace-config', 'http/2,http/3'
+         ])
+-        # but apache either denies on length limit or gives a 400
+-        if proto == 'h3':
+-            # depends on nghttp3 version
+-            assert r.exit_code in (0, 56), f'expected exit code 0 or 56, '\
+-                                           f'got {r.exit_code}\n{r.dump_logs()}'
++        if proto == 'h3' and r.exit_code != 0:
++            # nghttpx violently closes the connection now
++            assert r.exit_code in [55, 56, 95], f'{r.dump_logs()}'
+         else:
++            # but apache either denies on length limit or gives a 400
+             r.check_exit_code(0)
+-        if r.exit_code == 0:
+             assert r.stats[0]['http_code'] in [400, 431]
+ 
+     # PUT data, basic auth with very large pw
