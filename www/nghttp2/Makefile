@@ -1,5 +1,5 @@
 PORTNAME=	nghttp2
-DISTVERSION=	1.69.0
+DISTVERSION=	1.70.0
 CATEGORIES=	www net
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/v${DISTVERSION}/
 
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	libnghttp2>=${DISTVERSION}:www/libnghttp2
 LIB_DEPENDS=	libnghttp2.so:www/libnghttp2
 
-USES=		cmake compiler:c++20-lang cpe localbase:ldflags pathfix \
+USES=		cmake compiler:c++23-lang cpe localbase:ldflags pathfix \
 		pkgconfig python:env shebangfix ssl tar:xz
 
 USE_RC_SUBR=	nghttpx
