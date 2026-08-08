@@ -15,10 +15,8 @@ rm -rf /usr/ports/ftp/curl
 rm -rf /usr/ports/graphics/lcms2
 rm -rf /usr/ports/graphics/webp
 rm -rf /usr/ports/multimedia/libmediainfo
-rm -rf /usr/ports/multimedia/libx264
 rm -rf /usr/ports/multimedia/libzen
 rm -rf /usr/ports/multimedia/mediainfo
-rm -rf /usr/ports/multimedia/x264
 rm -rf /usr/ports/net/libngtcp2
 rm -rf /usr/ports/security/rhash
 rm -rf /usr/ports/textproc/libxslt
@@ -43,11 +41,9 @@ cp -Rp ftp/curl /usr/ports/ftp/curl
 cp -Rp graphics/lcms2 /usr/ports/graphics/lcms2
 cp -Rp graphics/webp /usr/ports/graphics/webp
 cp -Rp multimedia/libmediainfo /usr/ports/multimedia/libmediainfo
-cp -Rp multimedia/libx264 /usr/ports/multimedia/libx264
 cp -Rp multimedia/libzen /usr/ports/multimedia/libzen
 cp -Rp net/libngtcp2 /usr/ports/net/libngtcp2
 cp -Rp multimedia/mediainfo /usr/ports/multimedia/mediainfo
-cp -Rp multimedia/x264 /usr/ports/multimedia/x264
 cp -Rp security/rhash /usr/ports/security/rhash
 cp -Rp textproc/libxslt /usr/ports/textproc/libxslt
 cp -Rp textproc/libxml2 /usr/ports/textproc/libxml2
