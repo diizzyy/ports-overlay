@@ -1,5 +1,5 @@
 PORTNAME=	popt
-DISTVERSION=	1.19.20260414
+DISTVERSION=	1.19.20260818
 CATEGORIES=	devel
 #MASTER_SITES=	https://ftp.osuosl.org/pub/rpm/popt/releases/popt-1.x/ \
 #		http://ftp.rpm.org/popt/releases/popt-1.x/
@@ -17,7 +17,7 @@ USE_LDCONFIG=	yes
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	rpm-software-management
-GH_TAGNAME=	8631d60
+GH_TAGNAME=	14c42b4
 
 CMAKE_ON=	MAKE_DISABLE_FIND_PACKAGE_Doxygen
 
