@@ -1,5 +1,5 @@
 PORTNAME=	lcms2
-DISTVERSION=	2.19.1
+DISTVERSION=	2.20
 CATEGORIES=	graphics
 MASTER_SITES=	https://github.com/mm2/Little-CMS/releases/download/lcms${DISTVERSION}/
 
@@ -16,13 +16,14 @@ CPE_VENDOR=	littlecms
 CPE_PRODUCT=	little_cms_color_engine
 USE_LDCONFIG=	yes
 
-PLIST_SUB=	DISTVERSION=${DISTVERSION:R}
+PLIST_SUB=	DISTVERSION=${DISTVERSION}
 
 MESON_ARGS=	-Dfastfloat=true \
+		-Dtests=disabled \
 		-Dthreaded=true \
 		-Dutils=true
 
-OPTIONS_DEFINE=	DOCS JPEGICC TEST TIFFICC
+OPTIONS_DEFINE=	DOCS JPEGICC TIFFICC
 OPTIONS_DEFAULT=JPEGICC TIFFICC
 OPTIONS_SUB=	yes
 
@@ -32,10 +33,15 @@ TIFFICC_DESC=	Build color profile applier for TIFF
 JPEGICC_USES=		jpeg
 JPEGICC_MESON_ENABLED=	jpeg
 
-TEST_MESON_ENABLED=	tests
-
 TIFFICC_LIB_DEPENDS=	libtiff.so:graphics/tiff
 TIFFICC_MESON_ENABLED=	tiff
+
+pre-test:
+	@if [ ! -e ${WRKDIR}/.meson_build_tests ]; then \
+		${RM} ${CONFIGURE_COOKIE} ${BUILD_COOKIE}; \
+		${MAKE} -C${.CURDIR} build MESON_ARGS="${MESON_ARGS} --reconfigure -Dtests=enabled"; \
+		${TOUCH} ${WRKDIR}/.meson_build_tests; \
+	fi
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}/
