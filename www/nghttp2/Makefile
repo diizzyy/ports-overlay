@@ -1,5 +1,5 @@
 PORTNAME=	nghttp2
-DISTVERSION=	1.70.0
+DISTVERSION=	1.71.0
 CATEGORIES=	www net
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/v${DISTVERSION}/
 
