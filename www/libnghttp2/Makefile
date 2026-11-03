@@ -1,5 +1,5 @@
 PORTNAME=	nghttp2
-DISTVERSION=	1.70.0
+DISTVERSION=	1.71.0
 CATEGORIES=	www net
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/v${DISTVERSION}/
 PKGNAMEPREFIX=	lib
@@ -16,7 +16,6 @@ USES=		cmake compiler:c++23-lang cpe pathfix pkgconfig tar:xz
 USE_LDCONFIG=	yes
 
 CMAKE_ON=	ENABLE_LIB_ONLY \
-		ENABLE_STATIC_LIB \
 		CMAKE_DISABLE_FIND_PACKAGE_Jansson \
 		CMAKE_DISABLE_FIND_PACKAGE_Jemalloc \
 		CMAKE_DISABLE_FIND_PACKAGE_Libbrotlidec \
